@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<vozoul>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.advenced_java.vozoul.DemoApplication",
+            "projectName": "vozoul",
+            "args": ""
+        }
+    ]
+}
