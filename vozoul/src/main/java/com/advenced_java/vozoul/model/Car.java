@@ -2,8 +2,9 @@ package com.advenced_java.vozoul.model;
 
 public class Car {
 
-    private String Brand;
-    private String Model;
+    private Integer id;
+    private String brand;
+    private String model;
 
     public Car() {
 
@@ -11,28 +12,47 @@ public class Car {
 
     /**
      * Define Car's Brand and Model
-     * @param Brand
-     * @param Model
+     * @param brand
+     * @param model
      */
-    public Car(String Brand, String Model) {
-        this.Brand = Brand;
-        this.Model = Model;
+    public Car(Integer id, String brand, String model) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
     }
 
     /**
-     * get Car Brand
-     * @return String Brand
+     * get Car Id
+     * 
+     * @return Integer id
      */
-    public String getBrand() {
-        return Brand;
+    public Integer getId() {
+        return id;
     }
 
     /**
      * 
-     * @param Brand
+     * @param id
      */
-    public void setBrand(String Brand) {
-        this.Brand = Brand;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * get Car Brand
+     * 
+     * @return String Brand
+     */
+    public String getBrand() {
+        return brand;
+    }
+
+    /**
+     * 
+     * @param brand
+     */
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     /**
@@ -40,15 +60,15 @@ public class Car {
      * @return String Model
      */
     public String getModel() {
-        return Model;
+        return model;
     }
 
     /**
      * Set car model
-     * @param Model
+     * @param model
      */
-    public void setModel(String Model) {
-        this.Model = Model;
+    public void setModel(String model) {
+        this.model = model;
     }
 
 }

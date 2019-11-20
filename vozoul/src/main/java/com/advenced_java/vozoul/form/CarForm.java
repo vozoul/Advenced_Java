@@ -5,22 +5,40 @@ package com.advenced_java.vozoul.form;
  */
 public class CarForm {
 
-    private String Brand;
-    private String Model;
+    private Integer id;
+    private String brand;
+    private String model;
 
     /**
      * get Brand of car
+     * 
      * @return String brand
      */
-    public String getBrand() {
-        return Brand;
+    public Integer getId() {
+        return id;
     }
 
     /**
      * @param String Brand
      */
-    public void setBrand(String Brand) {
-        this.Brand = Brand;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * get Brand of car
+     * 
+     * @return String brand
+     */
+    public String getBrand() {
+        return brand;
+    }
+
+    /**
+     * @param String Brand
+     */
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     /**
@@ -28,14 +46,14 @@ public class CarForm {
      * @return String Model
      */
     public String getModel() {
-        return Model;
+        return model;
     }
 
     /**
-     * @param String Model
+     * @param String model
      */
-    public void setModel(String Model) {
-        this.Model = Model;
+    public void setmodel(String model) {
+        this.model = model;
     }
 
 }
