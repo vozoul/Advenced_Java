@@ -52,7 +52,7 @@ public class CarForm {
     /**
      * @param String model
      */
-    public void setmodel(String model) {
+    public void setModel(String model) {
         this.model = model;
     }
 

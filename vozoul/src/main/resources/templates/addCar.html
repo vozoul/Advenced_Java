@@ -16,12 +16,12 @@
              would be @{/edit.html}         
              -->
     
-    <form th:action="@{/addCar}" th:object="${CarForm}" method="POST">
+    <form th:action="@{/addCar}" th:object="${carForm}" method="POST">
         Brand:
-        <input type="text" th:field="*{Brand}" />
+        <input type="text" th:field="*{brand}" />
         <br />
         Model:
-        <input type="text" th:field="*{Model}" />
+        <input type="text" th:field="*{model}" />
         <br />
         <input type="submit" value="Create" />
     </form>

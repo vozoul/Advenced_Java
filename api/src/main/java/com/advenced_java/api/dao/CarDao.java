@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.advenced_java.api.model.Car;
+import com.advenced_java.api.model.Indexes;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +14,9 @@ public class CarDao implements DAO{
     public static List<Car> Cars = new ArrayList<>();
 
     static {
-        Cars.add(new Car(0, "Ferrari", "308 GTO"));
-        Cars.add(new Car(1, "Renault", "Twingo"));
-        Cars.add(new Car(2, "Peugeot", "307"));
+        Cars.add(new Car(Indexes.getId(), "Ferrari", "308 GTO"));
+        Cars.add(new Car(Indexes.getId(), "Renault", "Twingo"));
+        Cars.add(new Car(Indexes.getId(), "Peugeot", "307"));
     }
 
     @Override
@@ -35,6 +36,7 @@ public class CarDao implements DAO{
 
     @Override
     public Car save (Car Car) {
+        Car.setId(Indexes.getId());
         Cars.add(Car);
         return Car;
     }
@@ -51,16 +53,16 @@ public class CarDao implements DAO{
     }
 
     @Override
-    public Car update(int Id, Car updateCar) {
-        for (Car Car : Cars) {
-            if (Car.getId() == Id) {
+    public Car update(int id, Car updateCar) {
+        for (Car car : Cars) {
+            if (car.getId() == id) {
                 if (updateCar.getModel() != null) {
-                    Car.setModel(updateCar.getModel());
+                    car.setModel(updateCar.getModel());
                 }
                 if (updateCar.getBrand() != null) {
-                    Car.setBrand(updateCar.getBrand());
+                    car.setBrand(updateCar.getBrand());
                 }
-                return Car;
+                return car;
             }
         }
         return null;

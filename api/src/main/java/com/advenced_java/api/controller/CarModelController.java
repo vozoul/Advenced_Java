@@ -25,25 +25,26 @@ public class CarModelController {
         return new CarDao().findAll();
     }
 
-    @GetMapping(value = "/car/{Id}")
-    public Car findById(@PathVariable int Id) {
-        return new CarDao().findById(Id);
+    @GetMapping(value = "/car/{id}")
+    public Car findById(@PathVariable int id) {
+        return new CarDao().findById(id);
     }
 
     @PostMapping(value = "/car")
-    public void addCar(@RequestBody Car car) {
-        CarDao.save(car);
+    public Car addCar(@RequestBody Car car) {
+        return CarDao.save(car);
+        
     }
 
-    @DeleteMapping(value = "/car/{Id}")
-    public void remove(@PathVariable int Id) {
-        CarDao.delete(Id);
+    @DeleteMapping(value = "/car/{id}")
+    public void remove(@PathVariable int id) {
+        CarDao.delete(id);
     }
 
     @PutMapping(value = "/car/{id}")
-    public Car update(@PathVariable int id, @RequestBody Car Car) {
-        CarDao.update(id, Car);
-        return Car;
+    public Car update(@PathVariable int id, @RequestBody Car car) {
+        CarDao.update(id, car);
+        return car;
     }
 
 }

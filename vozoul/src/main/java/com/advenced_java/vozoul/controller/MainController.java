@@ -1,128 +1,113 @@
 package com.advenced_java.vozoul.controller;
 
-// import java.io.UnsupportedEncodingException;
-// import java.net.URI;
-// import java.net.URLEncoder;
-// import java.nio.charset.StandardCharsets;
-// import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.advenced_java.vozoul.form.CarForm;
-// import com.advenced_java.vozoul.form.CarForm;
 import com.advenced_java.vozoul.model.Car;
+
 import org.springframework.beans.factory.annotation.Value;
-// import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-// import org.springframework.web.bind.annotation.ModelAttribute;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.client.RestTemplate;
-// import org.springframework.web.util.UriComponentsBuilder;
-
-// import net.minidev.json.JSONArray;
 
 @Controller
 public class MainController {
-    // private static List<Car> Cars = new ArrayList<Car>();
 
-    // static {
-    //     Cars.add(new Car("Renault", "Clio"));
-    //     Cars.add(new Car("Peugeot", "307"));
-    // }
-
-    // Injectez (inject) via application.properties.
     @Value("${welcome.message}")
     private String message;
 
     @Value("${error.message}")
     private String errorMessage;
 
-    /**
-     * @param model
-     * @return
-     */
-    @GetMapping(value = { "/", "/index"})
+    private String apiUrl = "http://localhost:9090/";
+
+    @GetMapping(value = { "/", "/index" })
     public String index(Model model) {
         model.addAttribute("message", message);
         return "index";
     }
 
-    /**
-     * @param model
-     * @return index page
-     */
     @GetMapping(value = "/CarList")
     public String CarList(Model model) {
-        RestTemplate restTemplate = new RestTemplate();
-
-        String url = "http://localhost:9090/car";
-
-        List<Car> cars = restTemplate.getForObject(url, List.class);
-
+        RestTemplate rt = new RestTemplate();
+        String url = apiUrl + "car";
+        List<Car> cars = rt.getForObject(url, List.class);
         model.addAttribute("cars", cars);
-
         return "CarList";
     }
 
-    /**
-     * @param model
-     * @return index page
-     */
     @GetMapping(value = "/Car/{id}")
     public String Car(@PathVariable Integer id, Model model) {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:9090/car/" + id ;
-
-        Car car = restTemplate.getForObject(url, Car.class);
-
-        model.addAttribute("car", car);
-
+        CarForm carForm = new CarForm();
+        RestTemplate rt = new RestTemplate();
+        String url = apiUrl + "car/" + id;
+        Car car = rt.getForObject(url, Car.class);
+        carForm.setBrand(car.getBrand());
+        carForm.setModel(car.getModel());
+        model.addAttribute("id", id);
+        model.addAttribute("carForm", carForm);
         return "Car";
     }
 
-    // /**
-    //  * @param model
-    //  * @return addCar page
-    //  */
-    // @RequestMapping(value = { "/addCar" }, method = RequestMethod.GET)
-    // public String showAddCarPage(Model model) {
+    @GetMapping(value = "/addCar")
+    public String showAddCarPage(Model model) {
+        CarForm CarForm = new CarForm();
+        model.addAttribute("carForm", CarForm);
+        return "addCar";
+    }
 
-    //     CarForm CarForm = new CarForm();
-    //     model.addAttribute("CarForm", CarForm);
+    @PostMapping(value = "/addCar")
+    public String saveCar(Model model, @ModelAttribute("carForm") CarForm carForm) {
 
-    //     return "addCar";
-    // }
+        RestTemplate rt = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
 
-    // /**
-    //  * @param model
-    //  * @param CarForm
-    //  * @return addCar.html with added car
-    //  * @throws errorMessage
-    //  */
-    // @RequestMapping(value = { "/addCar" }, method = RequestMethod.POST)
-    // public String saveCar(Model model, //
-    //         @ModelAttribute("CarForm") CarForm CarForm) {
+        if (carForm != null) {
+            Car newCar = new Car();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            newCar.setBrand(carForm.getBrand());
+            newCar.setModel(carForm.getModel());
+            HttpEntity<Car> request = new HttpEntity<Car>(newCar, headers);
+            String url = apiUrl + "car";
+            newCar = rt.postForObject(url, request, Car.class);
+            model.addAttribute("car", newCar);
+            return "redirect:/CarList";
+        }
 
-    //     Integer id = CarForm.getId();
-    //     String brand = CarForm.getBrand();
-    //     String model = CarForm.getModel();
+        model.addAttribute("errorMessage", errorMessage);
+        return "addCar";
+    }
 
-    //     if (Brand != null && Brand.length() > 0 //
-    //             && Model != null && Model.length() > 0) {
-    //         Car newCar = new Car(id, brand, model);
-    //         cars.add(newCar);
+    @PostMapping(value = "/Car/{id}")
+    public String updateCar(@PathVariable Integer id, Model model, @ModelAttribute("carForm") CarForm carForm) {
 
-    //         return "redirect:/CarList";
-    //     }
+        Car modCar = new Car();
+        RestTemplate rt = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-    //     model.addAttribute("errorMessage", errorMessage);
-    //     return "addCar";
-    // }
+
+        modCar.setId(id);
+        modCar.setBrand(carForm.getBrand());
+        modCar.setModel(carForm.getModel());
+
+        HttpEntity<Car> request = new HttpEntity<Car>(modCar, headers);
+        String url = apiUrl + "car/" + id;
+        rt.exchange(url, HttpMethod.PUT, request, Car.class);
+        model.addAttribute("car", modCar);
+        return "redirect:/CarList";
+    }
 
 }

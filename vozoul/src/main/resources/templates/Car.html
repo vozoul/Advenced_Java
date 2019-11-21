@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,21 +8,27 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     <title>Car List</title>
 </head>
+
 <body>
     <h1>Car List</h1>
-    <a href="@{'addCar/'+${car.id}}">Update Car</a>
-    <br /><br />
     <div>
-        <table border="1">
-            <tr>
-                <th>Brand</th>
-                <th>Model</th>
-            </tr>
-            <tr>
-                <td th:utext="${car.brand}">...</td>
-                <td th:utext="${car.model}">...</td>
-            </tr>
-        </table>
+        <form th:action="@{'/Car/' + ${id}}" th:object="${carForm}" method="POST">
+            <table border="1">
+                <tr>
+                    <th>Id</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Options</th>
+                </tr>
+                <tr>
+                    <td th:utext="${id}"></td>
+                    <td><input th:field="*{brand}" /></td>
+                    <td><input th:field="*{model}" /></td>
+                    <td><input type="submit" value="Update Car" /></td>
+                </tr>
+            </table>
+        </form>
     </div>
 </body>
+
 </html>
