@@ -23,7 +23,10 @@
                 <td th:utext="${car.id}">...</td>
                 <td th:utext="${car.brand}">...</td>
                 <td th:utext="${car.model}">...</td>
-                <td><a th:href="@{'Car/'+${car.id}}">show</a></td>
+                <td>
+                    <a th:href="@{'Car/'+${car.id}}">show</a>
+                    <a th:href="@{'delete/'+${car.id}}">delete</a>
+                </td>
             </tr>
         </table>
     </div>

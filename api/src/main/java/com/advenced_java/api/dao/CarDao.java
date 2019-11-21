@@ -17,6 +17,7 @@ public class CarDao implements DAO{
         Cars.add(new Car(Indexes.getId(), "Ferrari", "308 GTO"));
         Cars.add(new Car(Indexes.getId(), "Renault", "Twingo"));
         Cars.add(new Car(Indexes.getId(), "Peugeot", "307"));
+        Cars.add(new Car(Indexes.getId(), "Fiat", "Multipla"));
     }
 
     @Override

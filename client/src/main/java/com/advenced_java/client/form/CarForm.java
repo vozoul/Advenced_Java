@@ -1,4 +1,4 @@
-package com.advenced_java.vozoul.form;
+package com.advenced_java.client.form;
 
 /**
  * Define or get Car brand and Model
@@ -43,6 +43,7 @@ public class CarForm {
 
     /**
      * get car model
+     * 
      * @return String Model
      */
     public String getModel() {

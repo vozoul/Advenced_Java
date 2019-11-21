@@ -1,4 +1,4 @@
-package com.advenced_java.vozoul.model;
+package com.advenced_java.client.model;
 
 public class Car {
 
@@ -12,6 +12,7 @@ public class Car {
 
     /**
      * Define Car's Brand and Model
+     * 
      * @param brand
      * @param model
      */
@@ -57,6 +58,7 @@ public class Car {
 
     /**
      * Get Car model
+     * 
      * @return String Model
      */
     public String getModel() {
@@ -65,6 +67,7 @@ public class Car {
 
     /**
      * Set car model
+     * 
      * @param model
      */
     public void setModel(String model) {

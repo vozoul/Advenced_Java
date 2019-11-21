@@ -1,4 +1,4 @@
-package com.advenced_java.vozoul;
+package com.advenced_java.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
