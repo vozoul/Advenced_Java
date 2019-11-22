@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     <title>Car List</title>
 </head>
+
 <body>
     <h1>Car List</h1>
     <a href="addCar">Add Car</a>
@@ -24,11 +26,27 @@
                 <td th:utext="${car.brand}">...</td>
                 <td th:utext="${car.model}">...</td>
                 <td>
-                    <a th:href="@{'Car/'+${car.id}}">show</a>
-                    <a th:href="@{'delete/'+${car.id}}">delete</a>
+                    <a th:href="@{'/Car/' + ${car.id}}">Show</a>
+
+                    <a href="#" class="delete" th:data-link="@{'/car/' + ${car.id}}">Delete</a>
                 </td>
             </tr>
         </table>
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $('.delete').on("click", (e) => {
+            e.preventDefault();
+            var link = $(e.target).data('link');
+            $.ajax({
+                url: link,
+                method: 'delete',
+                success: function () {
+                    location.reload();
+                }
+            })
+        })
+    </script>
 </body>
+
 </html>

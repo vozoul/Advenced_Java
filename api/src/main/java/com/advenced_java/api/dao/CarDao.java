@@ -36,7 +36,7 @@ public class CarDao implements DAO{
     }
 
     @Override
-    public Car save (Car Car) {
+    public Car create (Car Car) {
         Car.setId(Indexes.getId());
         Cars.add(Car);
         return Car;

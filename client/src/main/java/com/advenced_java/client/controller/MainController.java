@@ -1,6 +1,7 @@
 package com.advenced_java.client.controller;
 
-import java.util.List;
+import java.util.*;
+
 import com.advenced_java.client.form.CarForm;
 import com.advenced_java.client.model.Car;
 
@@ -9,8 +10,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -104,17 +107,12 @@ public class MainController {
         return "redirect:/CarList";
     }
     
-    @PostMapping(value = "/Car/{id}")
-    public String deleteCar(@PathVariable Integer id, Model model, @ModelAttribute("carForm") CarForm carForm) {
-
-        RestTemplate rt = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<Car> request = new HttpEntity<Car>(headers);
+    @DeleteMapping(value = "/car/{id}")
+    public String remove(@PathVariable Integer id) {
+        RestTemplate restTemplate = new RestTemplate();
         String url = apiUrl + "car/" + id;
-        rt.exchange(url, HttpMethod.DELETE, request, Car.class);
-        return "redirect:/CarList";
+        restTemplate.delete(url);
+        return "/CarList";
     }
 
 }

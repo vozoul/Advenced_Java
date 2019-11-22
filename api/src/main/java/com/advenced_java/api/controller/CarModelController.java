@@ -32,7 +32,7 @@ public class CarModelController {
 
     @PostMapping(value = "/car")
     public Car addCar(@RequestBody Car car) {
-        return CarDao.save(car);
+        return CarDao.create(car);
         
     }
 

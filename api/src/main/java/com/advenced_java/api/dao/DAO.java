@@ -10,7 +10,7 @@ public interface DAO {
 
     public Car findById (int Id);
 
-    public Car save (Car Car);
+    public Car create (Car Car);
 
     public Car delete (int Id);
 
