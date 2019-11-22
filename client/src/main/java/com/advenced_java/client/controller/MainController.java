@@ -36,16 +36,16 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping(value = "/CarList")
+    @GetMapping(value = "/carList")
     public String CarList(Model model) {
         RestTemplate rt = new RestTemplate();
         String url = apiUrl + "car";
         List<Car> cars = rt.getForObject(url, List.class);
         model.addAttribute("cars", cars);
-        return "CarList";
+        return "carList";
     }
 
-    @GetMapping(value = "/Car/{id}")
+    @GetMapping(value = "/car/{id}")
     public String Car(@PathVariable Integer id, Model model) {
         CarForm carForm = new CarForm();
         RestTemplate rt = new RestTemplate();
@@ -55,7 +55,7 @@ public class MainController {
         carForm.setModel(car.getModel());
         model.addAttribute("id", id);
         model.addAttribute("carForm", carForm);
-        return "Car";
+        return "car";
     }
 
     @GetMapping(value = "/addCar")
@@ -80,14 +80,14 @@ public class MainController {
             String url = apiUrl + "car";
             newCar = rt.postForObject(url, request, Car.class);
             model.addAttribute("car", newCar);
-            return "redirect:/CarList";
+            return "redirect:/carList";
         }
 
         model.addAttribute("errorMessage", errorMessage);
         return "addCar";
     }
 
-    @PostMapping(value = "/Car/{id}")
+    @PostMapping(value = "/car/{id}")
     public String updateCar(@PathVariable Integer id, Model model, @ModelAttribute("carForm") CarForm carForm) {
 
         Car modCar = new Car();
@@ -103,7 +103,7 @@ public class MainController {
         String url = apiUrl + "car/" + id;
         rt.exchange(url, HttpMethod.PUT, request, Car.class);
         model.addAttribute("car", modCar);
-        return "redirect:/CarList";
+        return "redirect:/carList";
     }
     
     @DeleteMapping(value = "/car/{id}")
@@ -111,7 +111,7 @@ public class MainController {
         RestTemplate restTemplate = new RestTemplate();
         String url = apiUrl + "car/" + id;
         restTemplate.delete(url);
-        return "/CarList";
+        return "/carList";
     }
 
 }

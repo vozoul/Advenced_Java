@@ -1,87 +1,61 @@
 package com.advenced_java.api.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Car {
 
-    private Integer Id;
-    private String Brand;
-    private String Model;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    private String brand;
+    
+    private String model;
 
     public Car() {
 
     }
 
-    /**
-     * Define Car's Brand and Model
-     * 
-     * @param Id
-     * @param Brand
-     * @param Model
-     */
-    public Car(Integer Id, String Brand, String Model) {
-        this.Id = Id;
-        this.Brand = Brand;
-        this.Model = Model;
+    public Car(Integer id, String brand, String model) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
     }
 
-    /**
-     * get Car Brand
-     * 
-     * @return String Brand
-     */
     public String getBrand() {
-        return Brand;
+        return brand;
     }
 
-    /**
-     * 
-     * @param Brand
-     */
-    public void setBrand(String Brand) {
-        this.Brand = Brand;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    /**
-     * Get Car model
-     * 
-     * @return String Model
-     */
     public String getModel() {
-        return Model;
+        return model;
     }
 
-    /**
-     * Set car model
-     * 
-     * @param Model
-     */
-    public void setModel(String Model) {
-        this.Model = Model;
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    /**
-     * Get Car Id
-     * 
-     * @return String Id
-     */
     public Integer getId() {
-        return Id;
+        return id;
     }
 
-    /**
-     * Set car Id
-     * 
-     * @param Id
-     */
-    public void setId(Integer Id) {
-        this.Id = Id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
     public String toString(){
-        return "Car{"+
-        "Id=" + Id +
-        "Brand=" + Brand +
-        "Model=" + Model +
+        return "car{"+
+        "id=" + id +
+        "brand=" + brand +
+        "model=" + model +
         "}";
     }
 

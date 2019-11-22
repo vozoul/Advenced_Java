@@ -26,7 +26,7 @@
                 <td th:utext="${car.brand}">...</td>
                 <td th:utext="${car.model}">...</td>
                 <td>
-                    <a th:href="@{'/Car/' + ${car.id}}">Show</a>
+                    <a th:href="@{'/car/' + ${car.id}}">Show</a>
 
                     <a href="#" class="delete" th:data-link="@{'/car/' + ${car.id}}">Delete</a>
                 </td>

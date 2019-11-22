@@ -1,9 +1,10 @@
 package com.advenced_java.api.controller;
 
-import java.util.List;
+import java.util.*;
 
-import com.advenced_java.api.dao.CarDao;
+import com.advenced_java.api.dao.CarRepository;
 import com.advenced_java.api.model.Car;
+import com.google.common.collect.Lists;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,32 +19,33 @@ import org.springframework.web.bind.annotation.RestController;
 public class CarModelController {
 
     @Autowired
-    private CarDao CarDao;
+    private CarRepository carRepo;
 
     @GetMapping(value = "/car")
-    public List<Car> list() {
-        return new CarDao().findAll();
+    public List<Car> carList() {
+        List<Car> myList = Lists.newArrayList(carRepo.findAll());
+        return myList;
     }
 
     @GetMapping(value = "/car/{id}")
-    public Car findById(@PathVariable int id) {
-        return new CarDao().findById(id);
+    public Optional<Car> findById(@PathVariable int id) {
+        return carRepo.findById(id);
     }
 
     @PostMapping(value = "/car")
     public Car addCar(@RequestBody Car car) {
-        return CarDao.create(car);
-        
+        return carRepo.save(car);
     }
 
     @DeleteMapping(value = "/car/{id}")
     public void remove(@PathVariable int id) {
-        CarDao.delete(id);
+        carRepo.deleteById(id);
     }
 
     @PutMapping(value = "/car/{id}")
     public Car update(@PathVariable int id, @RequestBody Car car) {
-        CarDao.update(id, car);
+        car.setId(id);
+        carRepo.save(car);
         return car;
     }
 
